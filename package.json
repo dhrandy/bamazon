@@ -1,0 +1,16 @@
+{
+  "name": "spitfire",
+  "version": "0.0.1",
+  "description": "Online retailer",
+  "main": "spitfire.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Randy Gentry",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "mysql": "^2.13.0",
+    "inquirer": "^3.0.1"
+  }
+}
