@@ -16,7 +16,7 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId + "\n");
    queryAllProducts()
    purchase()
-   connection.end()
+  //  connection.end()
 });
 
 function queryAllProducts() {
@@ -72,16 +72,16 @@ function purchase() {
         for (var i = 0; i < res.length; i++) {
           if (res[i].product_name === answer.choice) {
             chosenItem = res[i]
-            console.log(chosenItem)
-            console.log(chosenItem.stock_quantity)
-            console.log(answer.quantity)
+            // console.log(chosenItem)
+            // console.log(chosenItem.stock_quantity)
+            // console.log(answer.quantity)
           }
         }
 
         // determine if stock quantity is higher than entered quantity
-        console.log(chosenItem.stock_quantity)
-            console.log(answer.quantity)
-        if (answer.quantity < chosenItem.stock_quantity) {
+        // console.log(chosenItem.stock_quantity)
+        //     console.log(answer.quantity)
+        if (parseInt(answer.quantity) < parseInt(chosenItem.stock_quantity)) {
           var newQuantity = (parseInt(chosenItem.stock_quantity) - parseInt(answer.quantity))
           console.log(newQuantity)
           console.log(chosenItem.item_id)
@@ -94,11 +94,11 @@ function purchase() {
                 stock_quantity: newQuantity
               },
               {
-                product_name: chosenItem.product_name
+                item_id: parseInt(chosenItem.item_id)
               }
             ],
-            function(error) {
-              if (error) throw err
+            function(err) {
+              if (err) throw err
               console.log("Purchase placed successfully!")
               connection.end()
             }
