@@ -1,7 +1,13 @@
+////////////////////////////////////////////////////
+// required files
+////////////////////////////////////////////////////
 require("dotenv").config()
 var inquirer = require("inquirer")
 var mysql = require("mysql")
-
+var Table = require('cli-table');
+////////////////////////////////////////////////////
+// Creates a connection to the mysql database
+////////////////////////////////////////////////////
 var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -18,34 +24,53 @@ connection.connect(function(err) {
     purchase()
         //  connection.end()
 });
-
+////////////////////////////////////////////////////
+// Function that runs and displays initial information
+////////////////////////////////////////////////////
 function start() {
-    console.log("######  ")
-    console.log("#     #   ##   #    #   ##   ######  ####  #    #")
-    console.log("#     #  #  #  ##  ##  #  #      #  #    # ##   #")
-    console.log("######  #    # # ## # #    #    #   #    # # #  #")
-    console.log("#     # ###### #    # ######   #    #    # #  # #")
-    console.log("#     # #    # #    # #    #  #     #    # #   ##")
-    console.log("######  #    # #    # #    # ######  ####  #    #")
-    console.log("")
+    console.log("######  ");
+    console.log("#     #   ##   #    #   ##   ######  ####  #    #");
+    console.log("#     #  #  #  ##  ##  #  #      #  #    # ##   #");
+    console.log("######  #    # # ## # #    #    #   #    # # #  #");
+    console.log("#     # ###### #    # ######   #    #    # #  # #");
+    console.log("#     # #    # #    # #    #  #     #    # #   ##");
+    console.log("######  #    # #    # #    # ######  ####  #    #");
+    console.log("");
     console.log("Welcome to Bamazom! Enjoy your shopping!")
+    console.log("");
 }
-
+////////////////////////////////////////////////////
+// function which displays all the products
+////////////////////////////////////////////////////
 function queryAllProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
-        console.log("")
-        console.log("--------------------------------------------------")
-        console.log("")
-        console.log("ID | " + "Item | " + "Department | " + "Price | " + "Quantity")
-        for (var i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + "$" + res[i].price + " | " + res[i].stock_quantity)
-        }
-        console.log("")
-        console.log("--------------------------------------------------")
-        console.log("")
-    });
-}
+        var table = new Table({
+			head: ['Item Id#', 'Product Name', 'Department Name', 'Price', 'Stock Quantity'],
+			style: {
+				head: ['yellow'],
+				compact: true,
+                colAligns: ['center'],
+            },
+            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+            , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+            , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+            , 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+            }
+        });
+        for(var i=0; i<res.length; i++){
+			table.push(
+				[res[i].item_id, res[i].product_name, res[i].department_name, "$" + res[i].price, res[i].stock_quantity]
+			);
+		}
 
+		//this console.logs the table
+		console.log(table.toString());
+        console.log("");
+}
+    )}
+////////////////////////////////////////////////////
+// function which allows you to select what you want to purchase
+////////////////////////////////////////////////////
 function purchase() {
     // query the database for all items being products
     connection.query("SELECT * FROM products", function(err, res) {
@@ -93,14 +118,14 @@ function purchase() {
                         }],
                         function(err) {
                             if (err) throw err
-                            console.log("")
-                            console.log("--------------------------------------------------")
-                            console.log("")
-                            console.log("Purchase placed successfully!")
-                            console.log("Total Cost: $" + (parseInt(answer.quantity) * parseInt(chosenItem.price)))
-                            queryAllProducts()
-                            purchase()
-                            wait(2000)
+                            console.log("");
+                            console.log("--------------------------------------------------");
+                            console.log("");
+                            console.log("Purchase placed successfully!");
+                            console.log("Total Cost: $" + (parseInt(answer.quantity) * parseInt(chosenItem.price)));
+                            queryAllProducts();
+                            purchase();
+                            wait(2000);
                                 // connection.end()
                         }
                     )
@@ -108,13 +133,15 @@ function purchase() {
                     // bid wasn't high enough, so apologize and start over
                     console.log("Inventory too low...");
                     wait(2000);
-                    queryAllProducts()
-                    purchase()
+                    queryAllProducts();
+                    purchase();
                 }
             });
     });
 }
-
+////////////////////////////////////////////////////
+// function which runs a timer
+////////////////////////////////////////////////////
 function wait(ms) {
     var start = new Date().getTime();
     var end = start;

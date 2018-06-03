@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////
 // required files
 ////////////////////////////////////////////////////
-require("dotenv").config()
-var inquirer = require("inquirer")
-var mysql = require("mysql")
-
+require("dotenv").config();
+var inquirer = require("inquirer");
+var mysql = require("mysql");
+var Table = require('cli-table');
 ////////////////////////////////////////////////////
 // Creates a connection to the mysql database
 ////////////////////////////////////////////////////
@@ -19,7 +19,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
-    start()
+    start();
         //  connection.end()
 });
 ////////////////////////////////////////////////////
@@ -48,31 +48,88 @@ function start() {
             console.log("INVALID SELECTION, TRY AGAIN.")
             start();
         }
-    });
+    })
 }
 ////////////////////////////////////////////////////
 // function which displays all the products
 ////////////////////////////////////////////////////
 function queryAllProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
-        console.log("")
-        console.log("--------------------------------------------------")
-        console.log("")
-        console.log("ID | " + "Item | " + "Department | " + "Price | " + "Quantity")
-        for (var i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + "$" + res[i].price + " | " + res[i].stock_quantity)
-        }
-        console.log("")
-        console.log("--------------------------------------------------")
-        console.log("")
-        start()
+        var table = new Table({
+			head: ['Item Id#', 'Product Name', 'Department Name', 'Price', 'Stock Quantity'],
+			style: {
+				head: ['yellow'],
+				compact: true,
+                colAligns: ['center'],
+            },
+            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+            , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+            , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+            , 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+            }
+        });
+        for(var i=0; i<res.length; i++){
+			table.push(
+				[res[i].item_id, res[i].product_name, res[i].department_name, "$" + res[i].price, res[i].stock_quantity]
+			);
+		}
+
+		//this console.logs the table
+		console.log(table.toString());
+        console.log("");
+        ///////////////////////////////////////////////////////Old Table////////////////////////////////////////////////////////
+        // console.log("ID | " + "Item | " + "Department | " + "Price | " + "Quantity");
+        // for (var i = 0; i < res.length; i++) {
+        //     console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + "$" + res[i].price + " | " + res[i].stock_quantity);
+        // }
+        // console.log("");
+        // console.log("--------------------------------------------------");
+        // console.log("");
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        start();
     });
 }
 ////////////////////////////////////////////////////
 // function which displays only the low inventory
 ////////////////////////////////////////////////////
 function viewLow() {
+    connection.query("SELECT * FROM products WHERE stock_quantity<=5", function(err, res) {
+        if (err) throw err;
+        var table = new Table({
+			head: ['Item Id#', 'Product Name', 'Stock Quantity'],
+			style: {
+				head: ['yellow'],
+				compact: true,
+                colAligns: ['center'],
+            },
+            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+            , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+            , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+            , 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+            }
+        });
+        for(var i=0; i<res.length; i++){
+			table.push(
+				[res[i].item_id, res[i].product_name, res[i].stock_quantity]
+			);
+		}
 
+		//this console.logs the table
+		console.log(table.toString());
+        console.log("");
+        ///////////////////////////////////////Old Table///////////////////////////////////////////////////////////////
+        // console.log("--------------------------------------------------");
+        // console.log("");
+        // console.log("ID | " + "Item | " + "Quantity");
+        // for (var i = 0; i < res.length; i++) {
+        //     console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].stock_quantity)
+        // }
+        // console.log("");
+        // console.log("--------------------------------------------------");
+        // console.log("");
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        start();
+    })
 }
 ////////////////////////////////////////////////////
 // function which displays only the inventory, this is used in the add inventory function
@@ -80,26 +137,25 @@ function viewLow() {
 function invent() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
-        console.log("")
-        console.log("--------------------------------------------------")
-        console.log("")
-        console.log("ID | " + "Item | " + "Quantity")
+        console.log("");
+        console.log("--------------------------------------------------");
+        console.log("");
+        console.log("ID | " + "Item | " + "Quantity");
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].stock_quantity)
+            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].stock_quantity);
         }
-        console.log("")
-        console.log("--------------------------------------------------")
-        console.log("")
+        console.log("");
+        console.log("--------------------------------------------------");
+        console.log("");
     })
 }
 ////////////////////////////////////////////////////
 // function which allows you to add to the inventory
 ////////////////////////////////////////////////////
 function addInvent() {
-    invent()
+    invent();
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
-
         inquirer
             .prompt([{
                     name: "choice",
@@ -136,13 +192,16 @@ function addInvent() {
                 }],
                 function(err) {
                     if (err) throw err
-                    console.log("")
-                    console.log("--------------------------------------------------")
-                    console.log("")
-                    console.log("Inventory added successfully!")
-                    console.log("--------------------------------------------------")
-                    console.log("")
-                    start()
+                    console.log("");
+                    console.log("--------------------------------------------------");
+                    console.log("");
+                    console.log("Inventory added successfully!");
+                    console.log("");
+                    console.log("Product: " + chosenItem.product_name + " | " + "New Quantity: " + chosenItem.stock_quantity)
+                    console.log("");
+                    console.log("--------------------------------------------------");
+                    console.log("");
+                    start();
                 }
             )
         })
@@ -191,8 +250,8 @@ function addNewProduct() {
             function(err) {
                 if (err) throw err;
                 console.log("Product added successfully!");
-                console.log("--------------------------------------------------")
-                console.log("")
+                console.log("--------------------------------------------------");
+                console.log("");
                     // re-prompt the user for if they want to bid or post
                 start();
             }

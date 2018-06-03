@@ -9,6 +9,7 @@
   "author": "Randy Gentry",
   "license": "ISC",
   "dependencies": {
+    "cli-table": "^0.3.1",
     "dotenv": "^5.0.1",
     "inquirer": "^3.0.1",
     "mysql": "^2.13.0"
