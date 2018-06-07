@@ -38,6 +38,8 @@ The **Add to Inventory** option allows the user to select a given item ID and ad
 
 The **Add New Product** option allows the user to enter details about a new product which will be entered into the database upon completion of the form.
 
+The **Exit** option allows the user to exit the program.
+
 To run the manager interface please follow the steps below:
 
 	git clone https://github.com/dhrandy/bamazon.git
