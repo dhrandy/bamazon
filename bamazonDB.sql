@@ -44,14 +44,14 @@ VALUES ("Mcculloch Robotic Mower", "Outdoor", 1199.99 , 4 );
 
 -- SELECT * FROM products;
 
-CREATE TABLE departments(
-  department_id INT NOT NULL AUTO_INCREMENT,
-  department_name VARCHAR(45) NOT NULL,
-  over_head_cost  DECIMAL(10,2) default 0,
-  product_sales  DECIMAL(10,2) default 0,
-  total_profit  DECIMAL(10,2) default 0,
-  PRIMARY KEY (item_id)
-);
+-- CREATE TABLE departments(
+  -- department_id INT NOT NULL AUTO_INCREMENT,
+  -- department_name VARCHAR(45) NOT NULL,
+  -- over_head_cost  DECIMAL(10,2) default 0,
+  -- product_sales  DECIMAL(10,2) default 0,
+  -- total_profit  DECIMAL(10,2) default 0,
+  -- PRIMARY KEY (item_id)
+-- );
 
 -- SELECT * FROM departments;
 

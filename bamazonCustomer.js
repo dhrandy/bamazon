@@ -134,7 +134,7 @@ function purchase() {
                     )
                 } else {
                     // bid wasn't high enough, so apologize and start over
-                    console.log("Inventory too low...");
+                    console.log("Inventory too low..." + " Make a new selection.");
                     wait(2000);
                     queryAllProducts();
                     purchase();

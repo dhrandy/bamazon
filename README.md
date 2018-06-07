@@ -17,7 +17,7 @@ To run the customer interface please follow the steps below:
 	git clone https://github.com/dhrandy/bamazon.git
 	cd bamazon
 	npm install
-	node bamazonCustomer.js
+	node bamazonCustomer.js or just bamazonCustomer
 
 ### Manager Interace
 
@@ -42,7 +42,7 @@ To run the manager interface please follow the steps below:
 	git clone https://github.com/dhrandy/bamazon.git
 	cd bamazon
 	npm install
-	node bamazonManager.js
+	node bamazonManager.js or just bamazonManager
 
 ###Unfinished
 The Superviser section is unfinished. I plan on reviewing and finishing that portion in the future.
