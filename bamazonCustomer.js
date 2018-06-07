@@ -126,10 +126,8 @@ function purchase() {
                             console.log("");
                             console.log("--------------------------------------------------");
                             console.log("");
-                            queryAllProducts();
-                            purchase();
+                            anotherPurchase();
                             wait(2000);
-                                // connection.end()
                         }
                     )
                 } else {
@@ -141,6 +139,34 @@ function purchase() {
                 }
             });
     });
+}
+////////////////////////////////////////////////////
+// function which runs after you make a purchase which ask if you'd like to continue shopping or exit.
+////////////////////////////////////////////////////
+function anotherPurchase() {
+    inquirer
+        .prompt({
+            name: "manager",
+            type: "rawlist",
+            message: "MAKE A SELECTION",
+            choices: ["CONTINUE WITH ANOTHER PURCHASE", "EXIT"]
+        })
+
+    .then(function(answer) {
+        // based on their answer, either call the correct function
+        if (answer.manager === "CONTINUE WITH ANOTHER PURCHASE") {
+            queryAllProducts();
+            purchase();
+        } else if (answer.manager === "EXIT") {
+            console.log("Thanks for shopping with Bamazon. Have a great day!");
+            process.exit();
+        } else {
+            console.log("INVALID SELECTION, TRY AGAIN.")
+            start();
+            queryAllProducts();
+            purchase();
+        }
+    })
 }
 ////////////////////////////////////////////////////
 // function which runs a timer

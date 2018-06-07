@@ -28,6 +28,7 @@ The manager interface presents a list of four options, as below.
 	  VIEW LOW INVENTORY
 	  ADD INVENTORY
 	  ADD NEW PRODUCT
+	  EXIT
 	  
 The **View Products for Sale** option allows the user to view the current inventory of store items: item IDs, descriptions, department in which the item is located, price, and the quantity available in stock. 
 
@@ -44,5 +45,5 @@ To run the manager interface please follow the steps below:
 	npm install
 	node bamazonManager.js or just bamazonManager
 
-###Unfinished
+###Unfinished Supervisor
 The Superviser section is unfinished. I plan on reviewing and finishing that portion in the future.

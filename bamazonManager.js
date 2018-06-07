@@ -18,9 +18,19 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
+    console.log("");
     console.log("connected as id " + connection.threadId + "\n");
+    console.log("######  ");
+    console.log("#     #   ##   #    #   ##   ######  ####  #    #");
+    console.log("#     #  #  #  ##  ##  #  #      #  #    # ##   #");
+    console.log("######  #    # # ## # #    #    #   #    # # #  #");
+    console.log("#     # ###### #    # ######   #    #    # #  # #");
+    console.log("#     # #    # #    # #    #  #     #    # #   ##");
+    console.log("######  #    # #    # #    # ######  ####  #    #");
+    console.log("");
+    console.log("Welcome to the Bamazom Manager App!")
+    console.log("");
     start();
-        //  connection.end()
 });
 ////////////////////////////////////////////////////
 // function which prompts the user for what action they should take aka the start of the program
@@ -31,7 +41,7 @@ function start() {
             name: "manager",
             type: "rawlist",
             message: "MAKE A SELECTION",
-            choices: ["VIEW PRODUCTS FOR SALE", "VIEW LOW INVENTORY", "ADD INVENTORY", "ADD NEW PRODUCT"]
+            choices: ["VIEW PRODUCTS FOR SALE", "VIEW LOW INVENTORY", "ADD INVENTORY", "ADD NEW PRODUCT", "EXIT"]
         })
 
     .then(function(answer) {
@@ -44,6 +54,8 @@ function start() {
             addInvent();
         } else if (answer.manager === "ADD NEW PRODUCT") {
             addNewProduct();
+        } else if (answer.manager === "EXIT") {
+            process.exit()
         } else {
             console.log("INVALID SELECTION, TRY AGAIN.")
             start();
@@ -162,8 +174,6 @@ function invent() {
     
 }
 
-
-		
 ////////////////////////////////////////////////////
 // function which allows you to add to the inventory
 ////////////////////////////////////////////////////
@@ -207,13 +217,13 @@ function addInvent() {
                 }],
                 function(err) {
                     if (err) throw err
-                    var stockAdded = (parseInt(answer.quantity) + parseInt(chosenItem.stock_quantity))
+                    var stockAdded = (parseInt(answer.quantity) + parseInt(chosenItem.stock_quantity));
                     console.log("");
                     console.log("--------------------------------------------------");
                     console.log("");
                     console.log("Inventory added successfully!");
                     console.log("");
-                    console.log("Product: " + chosenItem.product_name + " | " + "New Quantity: " + stockAdded)
+                    console.log("Product: " + chosenItem.product_name + "\nNew Quantity: " + stockAdded);
                     console.log("");
                     console.log("--------------------------------------------------");
                     console.log("");
@@ -268,9 +278,11 @@ function addNewProduct() {
                 console.log("--------------------------------------------------");
                 console.log("");
                 console.log("Product added successfully!");
+                console.log("");
+                console.log("Product: " + answer.productName + "\nDepartment: " + answer.productDepartment + "\nProduct Price: $" + answer.productPrice + "\nQuantity: " + answer.productQuantity);
+                console.log("");
                 console.log("--------------------------------------------------");
                 console.log("");
-                    // re-prompt the user for if they want to bid or post
                 start();
             }
         );
