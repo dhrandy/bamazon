@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: process.env.password,
-    database: "spitfireDB"
+    database: "bamazonDB"
 });
 
 connection.connect(function(err) {
@@ -137,18 +137,33 @@ function viewLow() {
 function invent() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
-        console.log("");
-        console.log("--------------------------------------------------");
-        console.log("");
-        console.log("ID | " + "Item | " + "Quantity");
-        for (var i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].stock_quantity);
+        var table = new Table({
+			head: ['Item Id#', 'Product Name', 'Stock Quantity'],
+			style: {
+				head: ['yellow'],
+				compact: true,
+                colAligns: ['center'],
+            },
+            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+            , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+            , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+            , 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+            }
+        });
+        for(var i=0; i<res.length; i++){
+			table.push(
+				[res[i].item_id, res[i].product_name, res[i].stock_quantity]
+            );
         }
-        console.log("");
-        console.log("--------------------------------------------------");
+        //this console.logs the table
+		console.log(table.toString());
         console.log("");
     })
+    
 }
+
+
+		
 ////////////////////////////////////////////////////
 // function which allows you to add to the inventory
 ////////////////////////////////////////////////////
@@ -192,12 +207,13 @@ function addInvent() {
                 }],
                 function(err) {
                     if (err) throw err
+                    var stockAdded = (parseInt(answer.quantity) + parseInt(chosenItem.stock_quantity))
                     console.log("");
                     console.log("--------------------------------------------------");
                     console.log("");
                     console.log("Inventory added successfully!");
                     console.log("");
-                    console.log("Product: " + chosenItem.product_name + " | " + "New Quantity: " + chosenItem.stock_quantity)
+                    console.log("Product: " + chosenItem.product_name + " | " + "New Quantity: " + stockAdded)
                     console.log("");
                     console.log("--------------------------------------------------");
                     console.log("");
@@ -249,6 +265,8 @@ function addNewProduct() {
             },
             function(err) {
                 if (err) throw err;
+                console.log("--------------------------------------------------");
+                console.log("");
                 console.log("Product added successfully!");
                 console.log("--------------------------------------------------");
                 console.log("");

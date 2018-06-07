@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: process.env.password,
-    database: "spitfireDB"
+    database: "bamazonDB"
 });
 
 connection.connect(function(err) {
@@ -123,6 +123,9 @@ function purchase() {
                             console.log("");
                             console.log("Purchase placed successfully!");
                             console.log("Total Cost: $" + (parseInt(answer.quantity) * parseInt(chosenItem.price)));
+                            console.log("");
+                            console.log("--------------------------------------------------");
+                            console.log("");
                             queryAllProducts();
                             purchase();
                             wait(2000);

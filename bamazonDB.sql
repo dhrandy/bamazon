@@ -1,13 +1,13 @@
-DROP DATABASE IF EXISTS spitfireDB;
-CREATE DATABASE spitfireDB;
+DROP DATABASE IF EXISTS bamazonDB;
+CREATE DATABASE bamazonDB;
 
-USE spitfireDB;
+USE bamazonDB;
 
 CREATE TABLE products(
   item_id INT NOT NULL AUTO_INCREMENT,
   product_name VARCHAR(100) NOT NULL,
   department_name VARCHAR(45) NOT NULL,
-  price  DECIMAL(5,2) default 0,
+  price  DECIMAL(6,2) default 0,
   stock_quantity INT default 0,
   PRIMARY KEY (item_id)
 );
@@ -42,5 +42,16 @@ VALUES ("Dial Liquid Soap", "Health & Beauty", 4.99 , 50 );
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Mcculloch Robotic Mower", "Outdoor", 1199.99 , 4 );
 
-SELECT * FROM products;
+-- SELECT * FROM products;
+
+CREATE TABLE departments(
+  department_id INT NOT NULL AUTO_INCREMENT,
+  department_name VARCHAR(45) NOT NULL,
+  over_head_cost  DECIMAL(10,2) default 0,
+  product_sales  DECIMAL(10,2) default 0,
+  total_profit  DECIMAL(10,2) default 0,
+  PRIMARY KEY (item_id)
+);
+
+-- SELECT * FROM departments;
 
