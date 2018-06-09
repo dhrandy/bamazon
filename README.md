@@ -25,7 +25,7 @@ To run the customer interface please follow the steps below:
 **Start of Customer App**
 ![](screenshots/customer/customer-start.png)
 
-**Selecting**
+**Selection**
 ![](screenshots/customer/customer-select.png)
 
 **Order Complete**
