@@ -8,6 +8,7 @@ This application implements a simple command line based storefront using the npm
 
 In order to run this application, you should have the MySQL database already set up on your machine.  You will be able to create the *Bamazon* database and the *products* table with the SQL code found in [bamazonDB.sql](bamazonDB.sql). Run this code inside your MySQL client to populate the database, then you will be ready to proceed with running the Bamazon customer and manager interfaces.
 
+**MySQL Database Setup Screenshot**
 ![](screenshots/mysql/mysql.png)
 
 ### Customer Interface
@@ -21,10 +22,13 @@ To run the customer interface please follow the steps below:
 	npm install
 	node bamazonCustomer.js or just bamazonCustomer
 
+**Start of Customer App**
 ![](screenshots/customer/customer-start.png)
 
+**Selecting**
 ![](screenshots/customer/customer-select.png)
 
+**Order Complete**
 ![](screenshots/customer/customer-complete.png)
 
 
@@ -57,12 +61,17 @@ To run the manager interface please follow the steps below:
 	npm install
 	node bamazonManager.js or just bamazonManager
 
+**Start of Manager App**
 ![](screenshots/manager/manager-start.png)
 
+**View All Products**
 ![](screenshots/manager/manager-1.png)
 
+**View Low Inventory**
 ![](screenshots/manager/manager-2.png)
 
+**Add Inventory**
 ![](screenshots/manager/manager-3.png)
 
+**Add New Product**
 ![](screenshots/manager/manager-4.png)
