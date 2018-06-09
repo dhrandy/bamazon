@@ -68,26 +68,38 @@ function start() {
 function queryAllProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
         var table = new Table({
-			head: ['Item Id#', 'Product Name', 'Department Name', 'Price', 'Stock Quantity'],
-			style: {
-				head: ['yellow'],
-				compact: true,
+            head: ['Item Id#', 'Product Name', 'Department Name', 'Price', 'Stock Quantity'],
+            style: {
+                head: ['yellow'],
+                compact: true,
                 colAligns: ['center'],
             },
-            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
-            , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
-            , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
-            , 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+            chars: {
+                'top': '═',
+                'top-mid': '╤',
+                'top-left': '╔',
+                'top-right': '╗',
+                'bottom': '═',
+                'bottom-mid': '╧',
+                'bottom-left': '╚',
+                'bottom-right': '╝',
+                'left': '║',
+                'left-mid': '╟',
+                'mid': '─',
+                'mid-mid': '┼',
+                'right': '║',
+                'right-mid': '╢',
+                'middle': '│'
             }
         });
-        for(var i=0; i<res.length; i++){
-			table.push(
-				[res[i].item_id, res[i].product_name, res[i].department_name, "$" + res[i].price, res[i].stock_quantity]
-			);
-		}
+        for (var i = 0; i < res.length; i++) {
+            table.push(
+                [res[i].item_id, res[i].product_name, res[i].department_name, "$" + res[i].price, res[i].stock_quantity]
+            );
+        }
 
-		//this console.logs the table
-		console.log(table.toString());
+        //this console.logs the table
+        console.log(table.toString());
         console.log("");
         ///////////////////////////////////////////////////////Old Table////////////////////////////////////////////////////////
         // console.log("ID | " + "Item | " + "Department | " + "Price | " + "Quantity");
@@ -108,26 +120,38 @@ function viewLow() {
     connection.query("SELECT * FROM products WHERE stock_quantity<=5", function(err, res) {
         if (err) throw err;
         var table = new Table({
-			head: ['Item Id#', 'Product Name', 'Stock Quantity'],
-			style: {
-				head: ['yellow'],
-				compact: true,
+            head: ['Item Id#', 'Product Name', 'Stock Quantity'],
+            style: {
+                head: ['yellow'],
+                compact: true,
                 colAligns: ['center'],
             },
-            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
-            , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
-            , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
-            , 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+            chars: {
+                'top': '═',
+                'top-mid': '╤',
+                'top-left': '╔',
+                'top-right': '╗',
+                'bottom': '═',
+                'bottom-mid': '╧',
+                'bottom-left': '╚',
+                'bottom-right': '╝',
+                'left': '║',
+                'left-mid': '╟',
+                'mid': '─',
+                'mid-mid': '┼',
+                'right': '║',
+                'right-mid': '╢',
+                'middle': '│'
             }
         });
-        for(var i=0; i<res.length; i++){
-			table.push(
-				[res[i].item_id, res[i].product_name, res[i].stock_quantity]
-			);
-		}
+        for (var i = 0; i < res.length; i++) {
+            table.push(
+                [res[i].item_id, res[i].product_name, res[i].stock_quantity]
+            );
+        }
 
-		//this console.logs the table
-		console.log(table.toString());
+        //this console.logs the table
+        console.log(table.toString());
         console.log("");
         ///////////////////////////////////////Old Table///////////////////////////////////////////////////////////////
         // console.log("--------------------------------------------------");
@@ -150,28 +174,40 @@ function invent() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
         var table = new Table({
-			head: ['Item Id#', 'Product Name', 'Stock Quantity'],
-			style: {
-				head: ['yellow'],
-				compact: true,
+            head: ['Item Id#', 'Product Name', 'Stock Quantity'],
+            style: {
+                head: ['yellow'],
+                compact: true,
                 colAligns: ['center'],
             },
-            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
-            , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
-            , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
-            , 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+            chars: {
+                'top': '═',
+                'top-mid': '╤',
+                'top-left': '╔',
+                'top-right': '╗',
+                'bottom': '═',
+                'bottom-mid': '╧',
+                'bottom-left': '╚',
+                'bottom-right': '╝',
+                'left': '║',
+                'left-mid': '╟',
+                'mid': '─',
+                'mid-mid': '┼',
+                'right': '║',
+                'right-mid': '╢',
+                'middle': '│'
             }
         });
-        for(var i=0; i<res.length; i++){
-			table.push(
-				[res[i].item_id, res[i].product_name, res[i].stock_quantity]
+        for (var i = 0; i < res.length; i++) {
+            table.push(
+                [res[i].item_id, res[i].product_name, res[i].stock_quantity]
             );
         }
         //this console.logs the table
-		console.log(table.toString());
+        console.log(table.toString());
         console.log("");
     })
-    
+
 }
 
 ////////////////////////////////////////////////////
@@ -183,22 +219,21 @@ function addInvent() {
         if (err) throw err;
         inquirer
             .prompt([{
-                    name: "choice",
-                    type: "rawlist",
-                    choices: function() {
-                        var choiceArray = [];
-                        for (var i = 0; i < res.length; i++) {
-                            choiceArray.push(res[i].product_name);
-                        }
-                        return choiceArray;
-                    },
-                    message: "What is the ID of the product you'd like to add inventory to?"
-                }, {
-                    name: "quantity",
-                    type: "input",
-                    message: "How many would you like to add?"
-                }
-            ])
+                name: "choice",
+                type: "rawlist",
+                choices: function() {
+                    var choiceArray = [];
+                    for (var i = 0; i < res.length; i++) {
+                        choiceArray.push(res[i].product_name);
+                    }
+                    return choiceArray;
+                },
+                message: "What is the ID of the product you'd like to add inventory to?"
+            }, {
+                name: "quantity",
+                type: "input",
+                message: "How many would you like to add?"
+            }])
 
         .then(function(answer) {
             // get the information of the chosen item
@@ -279,7 +314,7 @@ function addNewProduct() {
                 console.log("");
                 console.log("Product added successfully!");
                 console.log("");
-                console.log("Product: " + answer.productName + "\nDepartment: " + answer.productDepartment + "\nProduct Price: $" + answer.productPrice + "\nQuantity: " + answer.productQuantity);
+                console.log("Product: " + answer.productName + "\nDepartment: " + answer.productDepartment + "\nProduct Price: $" + parseFloat(answer.productPrice) + "\nQuantity: " + answer.productQuantity);
                 console.log("");
                 console.log("--------------------------------------------------");
                 console.log("");

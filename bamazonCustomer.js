@@ -45,29 +45,41 @@ function start() {
 function queryAllProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
         var table = new Table({
-			head: ['Item Id#', 'Product Name', 'Department Name', 'Price', 'Stock Quantity'],
-			style: {
-				head: ['yellow'],
-				compact: true,
+            head: ['Item Id#', 'Product Name', 'Department Name', 'Price', 'Stock Quantity'],
+            style: {
+                head: ['yellow'],
+                compact: true,
                 colAligns: ['center'],
             },
-            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
-            , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
-            , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
-            , 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+            chars: {
+                'top': '═',
+                'top-mid': '╤',
+                'top-left': '╔',
+                'top-right': '╗',
+                'bottom': '═',
+                'bottom-mid': '╧',
+                'bottom-left': '╚',
+                'bottom-right': '╝',
+                'left': '║',
+                'left-mid': '╟',
+                'mid': '─',
+                'mid-mid': '┼',
+                'right': '║',
+                'right-mid': '╢',
+                'middle': '│'
             }
         });
-        for(var i=0; i<res.length; i++){
-			table.push(
-				[res[i].item_id, res[i].product_name, res[i].department_name, "$" + res[i].price, res[i].stock_quantity]
-			);
-		}
+        for (var i = 0; i < res.length; i++) {
+            table.push(
+                [res[i].item_id, res[i].product_name, res[i].department_name, "$" + res[i].price, res[i].stock_quantity]
+            );
+        }
 
-		//this console.logs the table
-		console.log(table.toString());
+        //this console.logs the table
+        console.log(table.toString());
         console.log("");
+    })
 }
-    )}
 ////////////////////////////////////////////////////
 // function which allows you to select what you want to purchase
 ////////////////////////////////////////////////////
@@ -122,18 +134,18 @@ function purchase() {
                             console.log("--------------------------------------------------");
                             console.log("");
                             console.log("Purchase placed successfully!");
-                            console.log("Total Cost: $" + (parseInt(answer.quantity) * parseInt(chosenItem.price)));
+                            console.log("Total Cost: $" + (parseInt(answer.quantity) * parseFloat(chosenItem.price)));
                             console.log("");
                             console.log("--------------------------------------------------");
                             console.log("");
                             anotherPurchase();
-                            wait(2000);
+                            // wait(2000);
                         }
                     )
                 } else {
                     // bid wasn't high enough, so apologize and start over
                     console.log("Inventory too low..." + " Make a new selection.");
-                    wait(2000);
+                    // wait(2000);
                     queryAllProducts();
                     purchase();
                 }
@@ -169,12 +181,12 @@ function anotherPurchase() {
     })
 }
 ////////////////////////////////////////////////////
-// function which runs a timer
+// function which runs a timer - added exit function, so I no longer use this
 ////////////////////////////////////////////////////
-function wait(ms) {
-    var start = new Date().getTime();
-    var end = start;
-    while (end < start + ms) {
-        end = new Date().getTime();
-    }
-}
+// function wait(ms) {
+//     var start = new Date().getTime();
+//     var end = start;
+//     while (end < start + ms) {
+//         end = new Date().getTime();
+//     }
+// }

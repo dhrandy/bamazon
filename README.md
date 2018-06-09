@@ -8,6 +8,8 @@ This application implements a simple command line based storefront using the npm
 
 In order to run this application, you should have the MySQL database already set up on your machine.  You will be able to create the *Bamazon* database and the *products* table with the SQL code found in [bamazonDB.sql](bamazonDB.sql). Run this code inside your MySQL client to populate the database, then you will be ready to proceed with running the Bamazon customer and manager interfaces.
 
+![](screenshots/mysql/mysql.png)
+
 ### Customer Interface
 
 The customer interface allows the user to view the current inventory of store items: item IDs, descriptions, department in which the item is located and price. The user is then able to purchase one of the existing items by entering the item ID and the desired quantity. If the selected quantity is currently in stock, the user's order is fulfilled, displaying the total purchase price and updating the store database. If the desired quantity is not available, the user will be notified via the command prompt that the inventory is low for that item.
@@ -18,6 +20,14 @@ To run the customer interface please follow the steps below:
 	cd bamazon
 	npm install
 	node bamazonCustomer.js or just bamazonCustomer
+
+![](screenshots/customer/customer-start.png)
+
+![](screenshots/customer/customer-select.png)
+
+![](screenshots/customer/customer-complete.png)
+
+
 
 ### Manager Interace
 
@@ -47,5 +57,12 @@ To run the manager interface please follow the steps below:
 	npm install
 	node bamazonManager.js or just bamazonManager
 
-###Unfinished Supervisor
-The Superviser section is unfinished. I plan on reviewing and finishing that portion in the future.
+![](screenshots/manager/manager-start.png)
+
+![](screenshots/manager/manager-1.png)
+
+![](screenshots/manager/manager-2.png)
+
+![](screenshots/manager/manager-3.png)
+
+![](screenshots/manager/manager-4.png)
